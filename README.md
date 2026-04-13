@@ -29,6 +29,11 @@ Some prompts to answer:
 
 You can include a simple diagram or bullet list if helpful.
 
+My design creates a score based on a song's attributes like genre.
+It uses this score to rank songs for recommendation and my design will 
+prioritize getting a song's score based on its attributes. Song and
+UserProfile will store features like genre and mood.
+
 ---
 
 ## Getting Started
@@ -74,6 +79,8 @@ Use this section to document the experiments you ran. For example:
 - What happened when you added tempo or valence to the score
 - How did your system behave for different types of users
 
+I declared various user preferences and observed how they made the output of the program vary.
+
 ---
 
 ## Limitations and Risks
@@ -88,6 +95,8 @@ Examples:
 
 You will go deeper on this in your model card.
 
+It is case-sensitive, so it may not always make matches when it should.
+
 ---
 
 ## Reflection
@@ -101,6 +110,9 @@ Write 1 to 2 paragraphs here about what you learned:
 - about how recommenders turn data into predictions
 - about where bias or unfairness could show up in systems like this
 
+Recommenders turn data into predictions by getting numbers from various features, like genre or mood. The numbers of features are then added together to obtain a score. A score of 1 means that the song is a perfect match to what the user prefers. While a score of 0 means that the song is nothing like what the user prefers. The number of each feature is sometimes referred to as a "weight" and is something that can be manipulated.
+
+Bias or unfairness can show up when there are to many songs that match what the user prefers. When this happens, songs that don't heavily what the user prefers may never show up on their recommendations, even though they may be a good match.
 
 ---
 
@@ -117,6 +129,8 @@ Give your recommender a name, for example:
 
 > VibeFinder 1.0
 
+BeatMatcher 1.0
+
 ---
 
 ## 2. Intended Use
@@ -127,6 +141,9 @@ Give your recommender a name, for example:
 Example:
 
 > This model suggests 3 to 5 songs from a small catalog based on a user's preferred genre, mood, and energy level. It is for classroom exploration only, not for real users.
+
+This model suggests 5 songs from a catalog of 18 songs based on a variety
+of features, especially genre and mood.
 
 ---
 
@@ -140,6 +157,10 @@ Describe your scoring logic in plain language.
 
 Try to avoid code in this section, treat it like an explanation to a non programmer.
 
+It considers genre, mood, energy, tempo_bpm, valence, danceability, and acousticness.
+It turns the various features into a number by adding up the values attributed
+to the features.
+
 ---
 
 ## 4. Data
@@ -150,6 +171,10 @@ Describe your dataset.
 - Did you add or remove any songs
 - What kinds of genres or moods are represented
 - Whose taste does this data mostly reflect
+
+18 songs are in 'data/songs.csv'. I added 8 songs. Lofi is highly represented
+in the csv file and it reflects the taste in music of those who use music
+to study.
 
 ---
 
@@ -162,6 +187,8 @@ You can think about:
 - Particular user profiles it served well
 - Simplicity or transparency benefits
 
+It works well for sorting by genre.
+
 ---
 
 ## 6. Limitations and Bias
@@ -173,6 +200,9 @@ Some prompts:
 - Does it treat all users as if they have the same taste shape
 - Is it biased toward high energy or one genre by default
 - How could this be unfair if used in a real product
+
+It struggles with words that are not case-sensitive. For example, it does
+not match "rock" to "Rock" because the first letter is not capitalized.
 
 ---
 
@@ -187,6 +217,8 @@ Examples:
 
 You do not need a numeric metric, but if you used one, explain what it measures.
 
+I created multiple user profiles with different features and observed how they affected the output of the program.
+
 ---
 
 ## 8. Future Work
@@ -199,6 +231,8 @@ Examples:
 - Balance diversity of songs instead of always picking the closest match
 - Use more features, like tempo ranges or lyric themes
 
+I would eliminate case-sensitivity to allow more valid matches.
+
 ---
 
 ## 9. Personal Reflection
@@ -209,3 +243,6 @@ A few sentences about what you learned:
 - How did building this change how you think about real music recommenders
 - Where do you think human judgment still matters, even if the model seems "smart"
 
+I'm surprised that this system gave some songs a much higher score than others.
+I'm also surprised that it managed to work on various user preferences, which
+shows me how valuable real music recommenders are.
